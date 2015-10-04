@@ -23,10 +23,10 @@ public class NinjaRope: MonoBehaviour {
         }
     }
 
-    public Vector3              startAnchor;
     private List<RopeAnchor>    anchors_ = new List<RopeAnchor>();
 
-    public GameObject           entityToFollow; // The player
+    public GameObject           baseEntity;
+    public GameObject           endEntity; // The player
 
     public float                ropeWidth = 0.12f; // The width of the rope
     public float                ropeLength = 3f; // The length
@@ -39,14 +39,15 @@ public class NinjaRope: MonoBehaviour {
         this.lineRenderer_ = gameObject.GetComponent<LineRenderer>();
         this.lineRenderer_.SetWidth(this.ropeWidth, this.ropeWidth);
 
-        this.anchors_.Add(new RopeAnchor(this.startAnchor, 0f));
-        this.anchors_.Add(new RopeAnchor(this.entityToFollow.transform.position, 0f));
+        this.anchors_.Add(new RopeAnchor(this.baseEntity.transform.position, 0f));
+        this.anchors_.Add(new RopeAnchor(this.endEntity.transform.position, 0f));
 
         this.updateJoint_();
     }
 	
 	protected void      FixedUpdate () {
-	    this.targetAnchor = new RopeAnchor(this.entityToFollow.transform.position, 0f);
+	    this.baseAnchor = new RopeAnchor(this.baseEntity.transform.position, 0f);
+	    this.targetAnchor = new RopeAnchor(this.endEntity.transform.position, 0f);
 
         this.popAnchors_();
         this.updateCollider_();
@@ -104,6 +105,23 @@ public class NinjaRope: MonoBehaviour {
                 goOn = true;
             }
         }
+
+        goOn = true;
+        while (2 < this.anchors_.Count && true == goOn) {
+            // Same goes from the beginning of the rope, because the base of the rope (the hook) could be moving
+            goOn = false;
+
+            Vector3     prev = this.postFirstAnchor.anchor - this.baseAnchor.anchor,
+                        act = this.postPostFirstAnchor.anchor - this.postFirstAnchor.anchor;
+            Vector3     prevPerpendicular = Quaternion.Euler(0f, 0f, 90f * this.postFirstAnchor.side) * prev;
+
+            if (0f <= Vector3.Dot(prevPerpendicular, act)) {
+                this.postFirstAnchor = this.postPostFirstAnchor;
+                this.anchors_.RemoveAt(2);
+
+                goOn = true;
+            }
+        }
     }
 
     private void    updateCollider_(bool direct = true) {
@@ -127,8 +145,8 @@ public class NinjaRope: MonoBehaviour {
         }
 
         joint.anchor = gameObject.transform.InverseTransformPoint(this.lastAnchor.anchor);
-        joint.connectedBody = this.entityToFollow.GetComponent<Rigidbody2D>();
-        joint.connectedAnchor = this.entityToFollow.transform.InverseTransformPoint(this.targetAnchor.anchor);
+        joint.connectedBody = this.endEntity.GetComponent<Rigidbody2D>();
+        joint.connectedAnchor = this.endEntity.transform.InverseTransformPoint(this.targetAnchor.anchor);
 
         float   distance = this.ropeLength - this.getActualRopeLength_();
         if (0f > distance)
@@ -200,6 +218,8 @@ public class NinjaRope: MonoBehaviour {
 
     
     public RopeAnchor baseAnchor    { get { return this.anchors_[0]; }                          set { this.anchors_[0] = value; } }
+    public RopeAnchor postFirstAnchor { get { return this.anchors_[1]; }                        set { this.anchors_[1] = value; } }
+    public RopeAnchor postPostFirstAnchor { get { return this.anchors_[2]; }                        set { this.anchors_[2] = value; } }
     public RopeAnchor targetAnchor  { get { return this.anchors_[this.anchors_.Count - 1]; }    set { this.anchors_[this.anchors_.Count - 1] = value; } }
     public RopeAnchor lastAnchor    { get { return this.anchors_[this.anchors_.Count - 2]; }    set { this.anchors_[this.anchors_.Count - 2] = value; } }
     public RopeAnchor preLastAnchor { get { return this.anchors_[this.anchors_.Count - 3]; }    set { this.anchors_[this.anchors_.Count - 3] = value; } }
