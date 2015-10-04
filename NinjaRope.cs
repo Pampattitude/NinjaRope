@@ -32,7 +32,7 @@ public class NinjaRope: MonoBehaviour {
     public float                ropeLength = 3f; // The length
     private float               minDistanceBetweenPoints_ = 0.1f;
 
-    protected void      Awake() {
+    protected void      Start() {
         this.initRigidbody_();
         this.initCollider_();
 
