@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ExamplePlayerController: MonoBehaviour {
+public class PermanentRopePlayerController: MonoBehaviour {
     private float   speed_ = 104f, ropeSpeed_ = 5f;
     private float   minRopeLength_ = 1f, maxRopeLength_ = 8f;
 

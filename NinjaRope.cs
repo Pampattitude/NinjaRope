@@ -1,12 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/*
- * Game object must have:
- *   - the script (duh)
- *   - a line renderer
- */
 [RequireComponent(typeof(LineRenderer))]
 public class NinjaRope: MonoBehaviour {
     private Rigidbody2D         rigidbody_;
@@ -142,8 +137,16 @@ public class NinjaRope: MonoBehaviour {
         DistanceJoint2D joint = gameObject.GetComponent<DistanceJoint2D>();
         if (!joint) {
             joint = gameObject.AddComponent<DistanceJoint2D>();
-            joint.maxDistanceOnly = false;
+
+            if (float.MaxValue - 0.001f > this.ropeLength)
+                joint.maxDistanceOnly = false;
+            else
+                joint.maxDistanceOnly = true;
         }
+        if (float.MaxValue - 0.001f > this.ropeLength)
+            joint.maxDistanceOnly = false;
+        else
+            joint.maxDistanceOnly = true;
 
         joint.anchor = gameObject.transform.InverseTransformPoint(this.lastAnchor.anchor);
         joint.connectedBody = this.endEntity.GetComponent<Rigidbody2D>();
@@ -230,6 +233,28 @@ public class NinjaRope: MonoBehaviour {
         for (int i = 0 ; this.anchors_.Count - 1 > i + 1 ; ++i) // Note: -1 because we don't want to account for the target
             dist += Vector3.Distance(this.anchors_[i].anchor, this.anchors_[i + 1].anchor);
         return dist;
+    }
+    // Different from the previous one because it also accounts for the last chunk, ending with the target
+    public float    getRopeLength() {
+        float dist = 0f;
+        for (int i = 0 ; this.anchors_.Count > i + 1 ; ++i)
+            dist += Vector3.Distance(this.anchors_[i].anchor, this.anchors_[i + 1].anchor);
+        return dist;
+    }
+
+    public void     setLength(float len) {
+        this.ropeLength = len;
+
+        DistanceJoint2D joint = gameObject.GetComponent<DistanceJoint2D>();
+        if (joint)
+            joint.maxDistanceOnly = false;
+    }
+    public void     removeLength() {
+        this.ropeLength = float.MaxValue;
+
+        DistanceJoint2D joint = gameObject.GetComponent<DistanceJoint2D>();
+        if (joint)
+            joint.maxDistanceOnly = true;
     }
     // !Utils
 }
