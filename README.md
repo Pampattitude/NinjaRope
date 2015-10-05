@@ -19,6 +19,6 @@ C&C and PRs are welcome!
 
 ## Credits
 
-* [danm3d](https://github.com/danm3d): `RequireComponent` of the `LineRenderer` in the `NinjaRope` script
+* [danm3d](https://github.com/danm3d): `RequireComponent` of the `LineRenderer` in the `NinjaRope` script ([`#3266e24`](https://github.com/Pampattitude/NinjaRope/commit/3266e24a0993f80931a27554431c7f3598c2e4fd))
 
 Thanks for your contribution, PRs are always appreciated!
