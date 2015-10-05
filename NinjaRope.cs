@@ -7,6 +7,7 @@ using System.Collections.Generic;
  *   - the script (duh)
  *   - a line renderer
  */
+[RequireComponent(typeof(LineRenderer))]
 public class NinjaRope: MonoBehaviour {
     private Rigidbody2D         rigidbody_;
     private LineRenderer        lineRenderer_;
