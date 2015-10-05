@@ -14,3 +14,11 @@ C&C and PRs are welcome!
 
 * ONLY works with `PolygonCollider2D`. PRs for other `Collider2D`s are welcome!
 * when a collider gets fragmented (because of Unity's way of handling colliders), the rope sometimes gets stuck inbetween fragments. There's no work-around here but to make your colliders simpler.
+
+- - - -
+
+## Credits
+
+* [danm3d](https://github.com/danm3d): `RequireComponent` of the `LineRenderer` in the `NinjaRope` script
+
+Thanks for your contribution, PRs are always appreciated!
