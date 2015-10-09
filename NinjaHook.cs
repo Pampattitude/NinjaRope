@@ -54,8 +54,6 @@ public class NinjaHook: MonoBehaviour {
         // Make kinematic to ensure the hook won't move anymore
         this.rigidbody_.isKinematic = true;
 
-        // Stick it to the collided obstacle
-        gameObject.transform.position = Physics2D.Raycast(gameObject.transform.position, this.direction).point;
         gameObject.transform.eulerAngles = new Vector3(0f, 0f, NinjaHook.pointsToAngle(Vector3.zero, this.direction));
 
         this.isHooked_ = true;
@@ -66,8 +64,6 @@ public class NinjaHook: MonoBehaviour {
         // Make kinematic to ensure the hook won't move anymore
         this.rigidbody_.isKinematic = true;
 
-        // Stick it to the collided obstacle
-        gameObject.transform.position = Physics2D.Raycast(gameObject.transform.position, this.direction).point;
         gameObject.transform.eulerAngles = new Vector3(0f, 0f, NinjaHook.pointsToAngle(Vector3.zero, this.direction));
 
         this.isHooked_ = true;
