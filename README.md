@@ -12,7 +12,8 @@ C&C and PRs are welcome!
 
 ## Known bugs
 
-* The `NinjaRopePlayerController` gets twitchy when the hook collides with an obstacle (and calls the `onHooked()` delegate)
+* ONLY works with `PolygonCollider2D`. PRs for other `Collider2D`s are welcome!
+* when a collider gets fragmented (because of Unity's way of handling colliders), the rope sometimes gets stuck inbetween fragments. There's no work-around here but to make your colliders simpler.
 
 - - - -
 
