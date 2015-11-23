@@ -114,6 +114,11 @@ public class NinjaRope: MonoBehaviour {
 
         do {
             Vector3     linecastTarget = prevPos + (this.targetAnchor.anchor - this.lastAnchor.anchor) / this.raycastStep;
+
+            // Check that the linecast is still being done in bounds of the last anchor -> target anchor vector
+            if (0f >= Vector3.Dot(this.targetAnchor.anchor - prevPos, this.targetAnchor.anchor - linecastTarget))
+                linecastTarget = this.targetAnchor.anchor;
+
             RaycastHit2D    rch = Physics2D.Linecast(prevPos, linecastTarget, this.collisionMask);
             if (!rch || 0.0001f >= Vector3.Distance(prevPos, rch.point))
                 rch = Physics2D.Linecast(linecastTarget, prevPos, this.collisionMask);
