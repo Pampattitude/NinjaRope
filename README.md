@@ -1,4 +1,5 @@
 # NinjaRope
+
 Unity3D implementation of the Ninja Rope in Worms Armaggedon.
 
 This implementation has been made for my game, [Scufflers](http://gamejolt.com/games/scufflers-pre-alpha/92083), currently in pre-alpha.
@@ -10,15 +11,22 @@ C&C and PRs are welcome!
 
 - - - -
 
+## Version history
+
+* v2 (actual): uses raycasting (via `Linecast`)
+* v1: uses collision with `Collider2D` for the `NinjaRope`
+
+- - - -
+
 ## Known bugs
 
-* ONLY works with `PolygonCollider2D`. PRs for other `Collider2D`s are welcome!
-* when a collider gets fragmented (because of Unity's way of handling colliders), the rope sometimes gets stuck inbetween fragments. There's no work-around here but to make your colliders simpler.
+* the `NinjaHook` makes the target entity twitch when the `NinjaHook` collides with something. See issue #3
 
 - - - -
 
 ## Credits
 
 * [danm3d](https://github.com/danm3d): `RequireComponent` of the `LineRenderer` in the `NinjaRope` script ([`#3266e24`](https://github.com/Pampattitude/NinjaRope/commit/3266e24a0993f80931a27554431c7f3598c2e4fd))
+* [Pampattitude](https://twitter.com/Pampattitude): duh!
 
 Thanks for your contribution, PRs are always appreciated!
