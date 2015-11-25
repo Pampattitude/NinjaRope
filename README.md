@@ -1,4 +1,4 @@
-# NinjaRope
+# `NinjaRope` <sup><sub>v0.2</sub></sup>
 
 Unity3D implementation of the Ninja Rope in Worms Armaggedon.
 
