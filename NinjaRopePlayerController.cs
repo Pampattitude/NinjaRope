@@ -50,6 +50,8 @@ public class NinjaRopePlayerController: MonoBehaviour {
                             rightVector = (Quaternion.Euler(0f, 0f, -90f) * upVector).normalized;
                 Vector3 posDelta = Vector3.zero;
 
+                this.hookScript_.rotateTo(this.ropeScript_.postFirstAnchor.anchor);
+
                 // Move the player
     	        if (Input.GetKey(KeyCode.A))
                     posDelta -= rightVector * this.speed_ * Time.fixedDeltaTime;

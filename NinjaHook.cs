@@ -76,6 +76,10 @@ public class NinjaHook: MonoBehaviour {
     // Util
     public bool     isHooked() { return this.isHooked_; }
 
+    public void     rotateTo(Vector3 pos) {
+        this.transform.eulerAngles = new Vector3(0f, 0f, 180f + NinjaHook.pointsToAngle(gameObject.transform.position, pos));
+    }
+
     private static float    pointsToAngle(Vector2 anc1, Vector2 anc2) {
         // Returns the angle between both vectors; note that the angle is NOT between -180 and 180
         return (Mathf.Atan2(anc2.y - anc1.y, anc2.x - anc1.x) * Mathf.Rad2Deg - 90f);
